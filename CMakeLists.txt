@@ -1,36 +1,23 @@
 cmake_minimum_required(VERSION 3.19)
-project(IMServer LANGUAGES CXX)
+project(IMServerConsole LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Network Sql)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Network Sql)
 
 qt_standard_project_setup()
 
-qt_add_executable(IMServer
-    WIN32 MACOSX_BUNDLE
+qt_add_executable(IMServerConsole
     main.cpp
-    widget.cpp
-    widget.h
-    widget.ui
-
+    imserver.h
+    imserver.cpp
 )
 
-target_link_libraries(IMServer
+target_link_libraries(IMServerConsole
     PRIVATE
         Qt::Core
-        Qt::Widgets
         Qt::Network
         Qt::Sql
 )
 
-install(TARGETS IMServer
-    BUNDLE  DESTINATION .
+install(TARGETS IMServerConsole
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
-
-qt_generate_deploy_app_script(
-    TARGET IMServer
-    OUTPUT_SCRIPT deploy_script
-    NO_UNSUPPORTED_PLATFORM_ERROR
-)
-install(SCRIPT ${deploy_script})

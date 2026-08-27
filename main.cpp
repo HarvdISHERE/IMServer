@@ -1,11 +1,17 @@
-#include "widget.h"
-
-#include <QApplication>
+#include <QCoreApplication>
+#include "imserver.h"
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    Widget w;
-    w.show();
-    return QApplication::exec();
+    QCoreApplication a(argc, argv);
+
+    ImServer srv;
+    if(!srv.startServer())
+    {
+        qCritical()<<"服务启动失败，退出程序";
+        return -1;
+    }
+
+    return a.exec();
 }
